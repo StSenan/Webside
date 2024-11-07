@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aplikacja Pomiarowa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #87CEEB;
+            color: #000;
+        }
+
+        .container {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        button {
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .label {
+            width: 100px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        input {
+            padding: 5px;
+            width: 80px;
+            box-sizing: border-box;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .ruwheid-input {
+            width: 120px;
+            margin-left: 10em;
+            font-size: 14px;
+        }
+
+        .ascii-text {
+            text-align: center;
+            margin-top: 25px;
+            font-family: monospace;
+        }
+
+        .output-header {
+            margin-top: 25px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .measurement-result {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+        .result-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .result-cell {
+            padding: 5px;
+            width: 80px;
+            text-align: center;
+            margin-right: 5px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .result-cell-ruwheid {
+            width: 120px;
+        }
+
+        .warning-messages {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: yellow;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .warning-message {
+            font-weight: bold;
+            color: red;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Aplikacja Pomiarowa</h1>
+    <div id="mainMenu" class="container active">
+        <button onclick="showSection('measurementsPage')">Pomiary</button>
+        <button onclick="showSection('tools')">Narzędzia</button>
+        <button onclick="showSection('qualityControl')">Kontrola Jakości</button>
+    </div>
+
+    <div id="measurementsPage" class="container">
+        <button onclick="showSection('mainMenu')">Wstecz</button>
+        <h2>Pomiar otworu 16</h2>
+        <div class="warning-messages" id="warningMessagesContainer">
+        </div>
+        <div class="input-row">
+            <div class="label">Spindel 1:</div>
+            <div class="input-group">
+                <input type="number" placeholder="Axis-X" oninput="validateInput(this, 'axisX', 'Spindel 1')">
+                <input type="number" placeholder="Axis-Y" oninput="validateInput(this, 'axisY', 'Spindel 1')">
+                <button onclick="toggleKaliber(this)">Kaliber</button>
+                <input type="number" class="ruwheid-input" placeholder="Ruwheid (Ra= 0,4)" oninput="validateInput(this, 'ruwheid', 'Spindel 1')">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="label">Spindel 2:</div>
+            <div class="input-group">
+                <input type="number" placeholder="Axis-X" oninput="validateInput(this, 'axisX', 'Spindel 2')">
+                <input type="number" placeholder="Axis-Y" oninput="validateInput(this, 'axisY', 'Spindel 2')">
+                <button onclick="toggleKaliber(this)">Kaliber</button>
+                <input type="number" class="ruwheid-input" placeholder="Ruwheid (Ra= 0,4)" oninput="validateInput(this, 'ruwheid', 'Spindel 2')">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="label">Spindel 3:</div>
+            <div class="input-group">
+                <input type="number" placeholder="Axis-X" oninput="validateInput(this, 'axisX', 'Spindel 3')">
+                <input type="number" placeholder="Axis-Y" oninput="validateInput(this, 'axisY', 'Spindel 3')">
+                <button onclick="toggleKaliber(this)">Kaliber</button>
+                <input type="number" class="ruwheid-input" placeholder="Ruwheid (Ra= 0,4)" oninput="validateInput(this, 'ruwheid', 'Spindel 3')">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="label">Spindel 4:</div>
+            <div class="input-group">
+                <input type="number" placeholder="Axis-X" oninput="validateInput(this, 'axisX', 'Spindel 4')">
+                <input type="number" placeholder="Axis-Y" oninput="validateInput(this, 'axisY', 'Spindel 4')">
+                <button onclick="toggleKaliber(this)">Kaliber</button>
+                <input type="number" class="ruwheid-input" placeholder="Ruwheid (Ra= 0,4)" oninput="validateInput(this, 'ruwheid', 'Spindel 4')">
+            </div>
+        </div>
+
+        <div style="margin-top: 15em;"></div>
+
+        <button onclick="saveData()">Zapisz</button>
+        <div class="output-header">Pierwszy pomiar:</div>
+        <div class="measurement-result" id="output"></div>
+    </div>
+
+    <div class="ascii-text">
+        BRINKS
+        <pre>
+    ____  ____  _____   ____ _______
+   / __ )/ __ \/  _/ | / / //_/ ___/
+  / __  / /_/ // //  |/ / ,<  \__ \ 
+ / /_/ / _, _// // /|  / /| |___/ / 
+/_____/_/ |_/___/_/ |_/_/ |_/____/  
+        </pre>
+        <img src="https://www.brinkscomponents.nl/wp-content/themes/brinks/images/logo_brinks.png" alt="Brinks Logo">
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.container');
+            sections.forEach(section => section.classList.remove('active'));
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) activeSection.classList.add('active');
+        }
+
+        let displayedWarnings = new Set();
+
+        function validateInput(input, type, spindel) {
+            const value = parseFloat(input.value);
+            const warningMessagesContainer = document.getElementById('warningMessagesContainer');
+            let warningMessage = '';
+            if (isNaN(value)) return;
+            if (type === 'axisX' || type === 'axisY') {
+                if (value < 9) {
+                    input.style.backgroundColor = 'red';
+                    warningMessage = `Powiększ średnicę Ruimera 16 na ${spindel} - w następnej rundzie sprawdź średnicę i Ra 5.1 i 3.1.`;
+                } else if (value > 20) {
+                    input.style.backgroundColor = 'red';
+                    warningMessage = `Wymień Ruimer 16- ${spindel}. W następnej rundzie zrób pomiary, wraz z Ra.`;
+                } else {
+                    input.style.backgroundColor = 'green';
+                }
+            }
+            if (type === 'ruwheid') {
+                if (value > 0.4) {
+                    input.style.backgroundColor = 'red';
+                    warningMessage = `Wymień Ruimer 16 ${spindel} - w następnej rundzie dokonaj pomiarów średnicy i Ra.`;
+                } else if (value >= 0.35 && value <= 0.4) {
+                    input.style.backgroundColor = 'yellow';
+                } else {
+                    input.style.backgroundColor = 'green';
+                }
+            }
+
+            if (warningMessage && !displayedWarnings.has(warningMessage)) {
+                const warningDiv = document.createElement('div');
+                warningDiv.classList.add('warning-message');
+                warningDiv.style.fontSize = '14px';
+                warningDiv.textContent = warningMessage;
+                warningMessagesContainer.appendChild(warningDiv);
+                displayedWarnings.add(warningMessage);
+            }
+        }
+
+        function toggleKaliber(button) {
+            button.style.backgroundColor = button.style.backgroundColor === 'green' ? 'red' : 'green';
+        }
+
+        function saveData() {
+            const outputContainer = document.getElementById('output');
+            outputContainer.innerHTML = '';
+
+            const rows = document.querySelectorAll('.input-row');
+            rows.forEach(row => {
+                const resultRow = document.createElement('div');
+                resultRow.classList.add('result-row');
+                const inputs = row.querySelectorAll('input');
+                inputs.forEach(input => {
+                    const resultCell = document.createElement('div');
+                    resultCell.classList.add('result-cell');
+                    resultCell.textContent = input.value;
+                    resultCell.style.backgroundColor = input.style.backgroundColor;
+                    resultRow.appendChild(resultCell);
+                });
+                outputContainer.appendChild(resultRow);
+            });
+        }
+    </script>
+</body>
+
+</html>
