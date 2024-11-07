@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona Główna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ADD8E6; /* Light blue background */
+            color: #2F4F4F; /* Dark gray text color */
+            font-weight: bold; /* Bold font */
+            position: relative;
+        }
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .button {
+            padding: 20px 40px; /* Increased padding */
+            font-size: 22px; /* Larger font size */
+            text-align: center;
+            background-color: #40E0D0; /* Turquoise color */
+            color: #2F4F4F; /* Dark gray text color */
+            font-weight: bold; /* Bold font */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #30b0a0; /* Darker turquoise on hover */
+        }
+    </style>
+    <script>
+        function changeLanguage(language) {
+            const texts = {
+                pl: {
+                    "Pierwsza Procedura": "Pierwsza Procedura",
+                    "Pomiary": "Pomiary",
+                    "Kontrola Jakości": "Kontrola Jakości",
+                    "Ważne Dane": "Ważne Dane",
+                    "Zgłoś Awarie": "Zgłoś Awarie",
+                    "Narzędzia": "Narzędzia"
+                },
+                en: {
+                    "Pierwsza Procedura": "First Procedure",
+                    "Pomiary": "Measurements",
+                    "Kontrola Jakości": "Quality Control",
+                    "Ważne Dane": "Important Data",
+                    "Zgłoś Awarie": "Report Failure",
+                    "Narzędzia": "Tools"
+                }
+            };
+            document.querySelectorAll(".button").forEach((button) => {
+                const originalText = button.getAttribute("data-original-text");
+                button.textContent = texts[language][originalText] || originalText;
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".button").forEach((button) => {
+                button.setAttribute("data-original-text", button.textContent);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="language-selector">
+        <select onchange="changeLanguage(this.value)">
+            <option value="pl">Polski</option>
+            <option value="en">English</option>
+        </select>
+    </div>
+    <div class="logo">
+        <img src="https://www.brinkscomponents.nl/wp-content/themes/brinks/images/logo_brinks.png" alt="Brinks Logo">
+    </div>
+    <div class="button-container">
+        <a href="Pierwsza_Procedura.html" class="button">Pierwsza Procedura</a>
+        <a href="Pomiary.html" class="button">Pomiary</a>
+        <a href="Kontrola_Jakosci.html" class="button">Kontrola Jakości</a>
+        <a href="Wazne_Dane.html" class="button">Ważne Dane</a>
+        <a href="Zglos_Awarie.html" class="button">Zgłoś Awarie</a>
+        <a href="narzedzia.html" class="button">Narzędzia</a>
+    </div>
+</body>
+</html>
