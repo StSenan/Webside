@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontrola Startowa Produkcji</title>
+    <style>
+        body {
+            background-color: #ADD8E6; /* jasnoniebieskie tło */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .content {
+            color: #FF4500; /* bardziej kontrastowy kolor czcionki */
+            font-size: 1.2em; /* średni rozmiar czcionki */
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 1.5em;
+        }
+        .toggleable {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+    </style>
+    <script>
+        function toggleColor(element) {
+            element.style.color = element.style.color === 'green' ? '#FF4500' : 'green';
+        }
+    </script>
+</head>
+<body>
+    <div class="content">
+        <h1>Kontrola Startowa Produkcji</h1>
+        <ol>
+            <li class="toggleable" onclick="toggleColor(this)"><strong>Przejęcie Zmiany:</strong> Skonsultuj się z poprzednią zmianą, sprawdź Agendę.</li>
+            <li class="toggleable" onclick="toggleColor(this)"><strong>Sprawdzenie Olejów:</strong> Skontroluj poziomy olejów ISO 56 i 46, w razie potrzeby uzupełnij.</li>
+            <li class="toggleable" onclick="toggleColor(this)"><strong>Reset Parametru R:</strong> Ustaw R na 0, aby uruchomić pomiar otworów (16 mm, 25/28/29 mm) pinometrem 2 i 3. Dostosuj średnicę ruimerów, jeśli otwory są zbyt małe.</li>
+            <li class="toggleable" onclick="toggleColor(this)"><strong>Wizualna Inspekcja Ostatniej Sztuki:</strong> Na początku zmiany dokładnie sprawdź ostatnio wyprodukowany element pod kątem chropowatości i wyśrodkowania otworów.</li>
+            <li class="toggleable" onclick="toggleColor(this)"><strong>Dodatkowa Kontrola po 2-3h:</strong> Sprawdź kolejną partię, gdy kolejna strona jest w połowie gotowa, aby utrzymać odpad na poziomie 3%.</li>
+        </ol>
+        <p class="toggleable" onclick="toggleColor(this)"><strong>Akceptowalna Norma:</strong> Produkcja powinna mieć od 2% do 5% defektów, co jest uznawane za dobry wynik. Dzięki wczesnym kontrolom można osiągnąć nawet 3% odpadów, spełniając akceptowalny zakres jakości.</p>
+        <p class="toggleable" onclick="toggleColor(this)"><strong>Efekt Pominięcia Kroków 4 i 5:</strong> Jeśli pominiesz wizualną inspekcję i dodatkową kontrolę po 2-3h, poziom defektów może wzrosnąć do 11,3%, co jest ponad dwukrotnie wyższe niż maksymalna dopuszczalna norma 5%. Skutkuje to większymi stratami i obniżeniem jakości produkcji.</p>
+    </div>
+</body>
+</html>
