@@ -10,7 +10,7 @@
             max-width: 600px;
             margin: auto;
             padding: 20px;
-            background-color: #F0F8FF; /* Jasny niebieski */
+            background-color: #F0F8FF;
         }
         h1, h2 {
             text-align: center;
@@ -43,56 +43,4 @@
 <!-- Lista rozwijana -->
 <label for="toolList">Wybierz Narzędzie:</label>
 <select id="toolList" onchange="displayDescription()">
-    <option value="">-- Wybierz narzędzie --</option>
-</select>
-
-<!-- Pole do wyświetlania opisu -->
-<label for="toolInfo">Opis Narzędzia:</label>
-<textarea id="toolInfo" rows="6" readonly></textarea>
-
-<!-- Komunikat o błędzie -->
-<p class="error" id="errorMessage"></p>
-
-<script>
-    // Ścieżka do pliku tools.json w głównym katalogu repozytorium
-    const TOOLS_JSON_URL = 'tools.json';
-
-    // Wczytywanie danych z pliku JSON
-    fetch(TOOLS_JSON_URL)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Nie udało się załadować listy narzędzi.");
-            }
-            return response.json();
-        })
-        .then(data => {
-            const select = document.getElementById("toolList");
-            
-            // Wypełnij listę narzędzi
-            for (const toolNumber in data) {
-                const option = document.createElement("option");
-                option.value = toolNumber;
-                option.textContent = `${toolNumber} - ${data[toolNumber].split(' - ')[0]}`;
-                select.appendChild(option);
-            }
-
-            // Przechowaj narzędzia w pamięci
-            window.tools = data;
-        })
-        .catch(error => {
-            console.error("Błąd:", error);
-            document.getElementById("errorMessage").textContent = "Błąd wczytywania pliku JSON.";
-        });
-
-    // Wyświetlenie szczegółów wybranego narzędzia
-    function displayDescription() {
-        const toolNumber = document.getElementById("toolList").value;
-        const description = window.tools && window.tools[toolNumber] 
-            ? window.tools[toolNumber] 
-            : "Brak opisu dla wybranego narzędzia.";
-        document.getElementById("toolInfo").value = description;
-    }
-</script>
-
-</body>
-</html>
+    <option value="">
