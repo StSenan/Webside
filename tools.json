@@ -6,5 +6,9 @@
     "G07232": {
         "name": "ROLLER 16",
         "description": "L1= 275\n\nOtwór 3.1 - bewerking 3\n\nø16 +0,03/0 - 3P-meter\nø16 Ra 0.8 - Ruwheidsmeter\n\nOtwór 5.1 - bewerking 1\n\nø16 +0,02/-0,01- 3P-meter\n(wand Ø16) Ra 0.4 (meten op 70 diep)"
+    },
+    "G11049": {
+        "name": "PR. FREES 15x16.7x18.2",
+        "description": "L1= 160   L2= 156,28\n\nOtwór 3.1 - bewerking 3\n\n(ø18) diep 62,5 ±0,2 (tot VL4) - Digi300 + pen ø18\n(inloop 15°) diep 1 +0,5/0 - Contourmeter\n(ø18) Ra 3.2 - Ruwheidsmeter\n(ø18) +0,3/0 - Duramax"
     }
 }
