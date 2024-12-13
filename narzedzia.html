@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
             padding: 20px;
             background-color: #F0F8FF;
@@ -27,7 +27,8 @@
             font-size: 16px;
         }
         textarea {
-            resize: none;
+            height: 300px;  /* Większe pole tekstowe */
+            resize: vertical;  /* Pozwól na zmianę rozmiaru w pionie */
         }
         .error {
             color: red;
@@ -48,7 +49,7 @@
 
 <!-- Pole do wyświetlania opisu -->
 <label for="toolInfo">Opis Narzędzia:</label>
-<textarea id="toolInfo" rows="8" readonly></textarea>
+<textarea id="toolInfo" rows="15" readonly></textarea>
 
 <!-- Komunikat o błędzie -->
 <p class="error" id="errorMessage"></p>
@@ -67,16 +68,18 @@
         })
         .then(data => {
             const select = document.getElementById("toolList");
-            
-            // Wypełnij listę narzędzi
+
+            // Wypełnij listę rozwijaną numerami i nazwami narzędzi
             for (const toolNumber in data) {
-                const option = document.createElement("option");
-                option.value = toolNumber;
-                option.textContent = `${toolNumber} - ${data[toolNumber].name}`;
-                select.appendChild(option);
+                if (data[toolNumber] && data[toolNumber].name) {
+                    const option = document.createElement("option");
+                    option.value = toolNumber;
+                    option.textContent = `${toolNumber} - ${data[toolNumber].name}`;
+                    select.appendChild(option);
+                }
             }
 
-            // Przechowaj dane globalnie
+            // Zapisanie danych globalnie
             window.tools = data;
         })
         .catch(error => {
@@ -84,10 +87,10 @@
             document.getElementById("errorMessage").textContent = "Błąd wczytywania pliku JSON.";
         });
 
-    // Wyświetlanie szczegółowego opisu
+    // Funkcja wyświetlająca szczegóły narzędzia
     function displayDescription() {
         const toolNumber = document.getElementById("toolList").value;
-        const description = window.tools && window.tools[toolNumber]
+        const description = window.tools && window.tools[toolNumber] && window.tools[toolNumber].description
             ? window.tools[toolNumber].description
             : "Brak opisu dla wybranego narzędzia.";
         document.getElementById("toolInfo").value = description;
