@@ -9,10 +9,10 @@
     },
     "G11049": {
         "name": "PR. FREES 15x16.7x18.2",
-        "description": "Verzinking ø18.4 +0.4/0 - Kegeldiatester\n(ø18) diep 62,5 ±0,2 (tot VL4) - Digi300 + pen ø18\n(inloop 15°) diep 1 +0,5/0 - Contourmeter\n(ø18) Ra 3.2 - Ruwheidsmeter\n(ø18) +0,3/0 - Duramax"
+        "description": "L1= 160   L2= 156,28\n\nOtwór 3.1 - bewerking 3"
     },
     "G02058": {
         "name": "PR.BOOR M8 HSS",
-        "description": "Otwór 6.2 - bewerking 3\n\n(ø6,8) diep 17 0/-1 - Digi + pen\nø6,8 +0,3/0 - Pen\nVerzinking ø9 ±0,2 - Kegeldiatester"
+        "description": "L1= 249  L2= 247,2\n\nOtwór 6.2 - bewerking 3"
     }
 }
