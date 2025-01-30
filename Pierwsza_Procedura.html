@@ -2,27 +2,12 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-
-
-    
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<div class="ascii-text">
-    
-        <pre>
-    ____  ____  _____   ____ _______
-   / __ )/ __ \/  _/ | / / //_/ ___/
-  / __  / /_/ // //  |/ / ,<  \__ \ 
- / /_/ / _, _// // /|  / /| |___/ / 
-/_____/_/ |_/___/_/ |_/_/ |_/____/  
-        </pre>
-    
     <title>Kontrola Startowa Produkcji</title>
     <style>
         body {
-            background-color: #ADD8E6; /* jasnoniebieskie tło */
+            background-color: #ADD8E6;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -31,8 +16,8 @@
             font-family: Arial, sans-serif;
         }
         .content {
-            color: #2F4F4F; /* bardziej kontrastowy kolor czcionki */
-            font-size: 1.2em; /* średni rozmiar czcionki */
+            color: #2F4F4F;
+            font-size: 1.2em;
             text-align: center;
             max-width: 600px;
             padding: 20px;
@@ -44,25 +29,68 @@
             cursor: pointer;
             transition: color 0.3s;
         }
+        .language-select {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     </style>
     <script>
-        function toggleColor(element) {
-            element.style.color = element.style.color === 'green' ? '#FF4500' : 'green';
+        const translations = {
+            pl: {
+                title: "Kontrola Startowa Produkcji",
+                steps: [
+                    "Przejęcie Zmiany: Skonsultuj się z poprzednią zmianą, sprawdź Agendę.",
+                    "Sprawdzenie Olejów: Skontroluj poziomy olejów ISO 56 i 46, w razie potrzeby uzupełnij.",
+                    "Reset Parametru R: Ustaw R na 0, aby uruchomić pomiar otworów (16 mm, 25/28/29 mm) pinometrem 2 i 3. Dostosuj średnicę ruimerów, jeśli otwory są zbyt małe.",
+                    "Wizualna Inspekcja Ostatniej Sztuki: Na początku zmiany dokładnie sprawdź ostatnio wyprodukowany element pod kątem chropowatości i wyśrodkowania otworów.",
+                    "Dodatkowa Kontrola po 2-3h: Sprawdź kolejną partię, gdy kolejna strona jest w połowie gotowa, aby utrzymać odpad na poziomie 3%."
+                ],
+                acceptable: "Akceptowalna Norma: Produkcja powinna mieć od 2% do 5% defektów, co jest uznawane za dobry wynik. Dzięki wczesnym kontrolom można osiągnąć nawet 3% odpadów, spełniając akceptowalny zakres jakości.",
+                effect: "Efekt Pominięcia Kroków 4 i 5: Jeśli pominiesz wizualną inspekcję i dodatkową kontrolę po 2-3h, poziom defektów może wzrosnąć do 11,3%, co jest ponad dwukrotnie wyższe niż maksymalna dopuszczalna norma 5%. Skutkuje to większymi stratami i obniżeniem jakości produkcji."
+            },
+            en: {
+                title: "Production Start Control",
+                steps: [
+                    "Shift Handover: Consult with the previous shift, check the Agenda.",
+                    "Oil Check: Inspect ISO 56 and 46 oil levels, refill if necessary.",
+                    "R Parameter Reset: Set R to 0 to start measuring holes (16 mm, 25/28/29 mm) with pinometers 2 and 3. Adjust the reamer diameter if holes are too small.",
+                    "Visual Inspection of Last Part: At the beginning of the shift, thoroughly inspect the last produced part for roughness and hole alignment.",
+                    "Additional Check After 2-3 Hours: Check another batch when the next side is halfway done to maintain a scrap rate of 3%."
+                ],
+                acceptable: "Acceptable Standard: Production should have a defect rate between 2% and 5%, considered a good result. Early checks can achieve even 3% scrap, meeting the acceptable quality range.",
+                effect: "Effect of Skipping Steps 4 and 5: If you skip the visual inspection and additional check after 2-3 hours, the defect rate may rise to 11.3%, more than twice the maximum allowable standard of 5%. This results in higher losses and lower production quality."
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelector("h1").textContent = translations[lang].title;
+            const steps = document.querySelectorAll(".step");
+            steps.forEach((step, index) => {
+                step.textContent = translations[lang].steps[index];
+            });
+            document.getElementById("acceptable").textContent = translations[lang].acceptable;
+            document.getElementById("effect").textContent = translations[lang].effect;
         }
     </script>
 </head>
 <body>
+    <select class="language-select" onchange="changeLanguage(this.value)">
+        <option value="pl">Polski</option>
+        <option value="en">English</option>
+    </select>
+
     <div class="content">
         <h1>Kontrola Startowa Produkcji</h1>
         <ol>
-            <li class="toggleable" onclick="toggleColor(this)"><strong>Przejęcie Zmiany:</strong> Skonsultuj się z poprzednią zmianą, sprawdź Agendę.</li>
-            <li class="toggleable" onclick="toggleColor(this)"><strong>Sprawdzenie Olejów:</strong> Skontroluj poziomy olejów ISO 56 i 46, w razie potrzeby uzupełnij.</li>
-            <li class="toggleable" onclick="toggleColor(this)"><strong>Reset Parametru R:</strong> Ustaw R na 0, aby uruchomić pomiar otworów (16 mm, 25/28/29 mm) pinometrem 2 i 3. Dostosuj średnicę ruimerów, jeśli otwory są zbyt małe.</li>
-            <li class="toggleable" onclick="toggleColor(this)"><strong>Wizualna Inspekcja Ostatniej Sztuki:</strong> Na początku zmiany dokładnie sprawdź ostatnio wyprodukowany element pod kątem chropowatości i wyśrodkowania otworów.</li>
-            <li class="toggleable" onclick="toggleColor(this)"><strong>Dodatkowa Kontrola po 2-3h:</strong> Sprawdź kolejną partię, gdy kolejna strona jest w połowie gotowa, aby utrzymać odpad na poziomie 3%.</li>
+            <li class="toggleable step" onclick="toggleColor(this)">Przejęcie Zmiany: Skonsultuj się z poprzednią zmianą, sprawdź Agendę.</li>
+            <li class="toggleable step" onclick="toggleColor(this)">Sprawdzenie Olejów: Skontroluj poziomy olejów ISO 56 i 46, w razie potrzeby uzupełnij.</li>
+            <li class="toggleable step" onclick="toggleColor(this)">Reset Parametru R: Ustaw R na 0, aby uruchomić pomiar otworów (16 mm, 25/28/29 mm) pinometrem 2 i 3. Dostosuj średnicę ruimerów, jeśli otwory są zbyt małe.</li>
+            <li class="toggleable step" onclick="toggleColor(this)">Wizualna Inspekcja Ostatniej Sztuki: Na początku zmiany dokładnie sprawdź ostatnio wyprodukowany element pod kątem chropowatości i wyśrodkowania otworów.</li>
+            <li class="toggleable step" onclick="toggleColor(this)">Dodatkowa Kontrola po 2-3h: Sprawdź kolejną partię, gdy kolejna strona jest w połowie gotowa, aby utrzymać odpad na poziomie 3%.</li>
         </ol>
-        <p class="toggleable" onclick="toggleColor(this)"><strong>Akceptowalna Norma:</strong> Produkcja powinna mieć od 2% do 5% defektów, co jest uznawane za dobry wynik. Dzięki wczesnym kontrolom można osiągnąć nawet 3% odpadów, spełniając akceptowalny zakres jakości.</p>
-        <p class="toggleable" onclick="toggleColor(this)"><strong>Efekt Pominięcia Kroków 4 i 5:</strong> Jeśli pominiesz wizualną inspekcję i dodatkową kontrolę po 2-3h, poziom defektów może wzrosnąć do 11,3%, co jest ponad dwukrotnie wyższe niż maksymalna dopuszczalna norma 5%. Skutkuje to większymi stratami i obniżeniem jakości produkcji.</p>
+        <p class="toggleable" id="acceptable" onclick="toggleColor(this)">Akceptowalna Norma: Produkcja powinna mieć od 2% do 5% defektów, co jest uznawane za dobry wynik. Dzięki wczesnym kontrolom można osiągnąć nawet 3% odpadów, spełniając akceptowalny zakres jakości.</p>
+        <p class="toggleable" id="effect" onclick="toggleColor(this)">Efekt Pominięcia Kroków 4 i 5: Jeśli pominiesz wizualną inspekcję i dodatkową kontrolę po 2-3h, poziom defektów może wzrosnąć do 11,3%, co jest ponad dwukrotnie wyższe niż maksymalna dopuszczalna norma 5%.</p>
     </div>
 </body>
 </html>
